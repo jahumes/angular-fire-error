@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {
-  canActivate,
-  redirectLoggedInTo,
-  redirectUnauthorizedTo
-} from '@angular/fire/auth-guard';
 import {LandingPageComponent} from './pages/landing-page/landing-page.component';
+import {canActivate, redirectLoggedInTo, redirectUnauthorizedTo} from './guards/auth.guard';
 
 const routes: Routes = [
   {

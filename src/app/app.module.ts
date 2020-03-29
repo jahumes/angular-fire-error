@@ -8,6 +8,7 @@ import {AngularFireModule} from '@angular/fire';
 import {ToastrModule} from 'ngx-toastr';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 const config = {
   apiKey: 'AIzaSyAfFdF4-IFkLje0lynFnQmFcB_1za0tl_Q',
@@ -27,6 +28,7 @@ const config = {
     AppRoutingModule,
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     ToastrModule.forRoot()
   ],
   providers: [],
