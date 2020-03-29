@@ -5,6 +5,7 @@ import {
   redirectLoggedInTo,
   redirectUnauthorizedTo
 } from '@angular/fire/auth-guard';
+import {LandingPageComponent} from './pages/landing-page/landing-page.component';
 
 const redirectUnauthorized = () => redirectUnauthorizedTo(['/auth/login']);
 
@@ -18,13 +19,18 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () =>
       import('./auth/auth.module').then(module => module.AuthModule),
-    ...canActivate(() => redirectLoggedInTo(['/videos/dashboard']))
+    ...canActivate(() => redirectLoggedInTo(['/testing/page']))
   },
   {
     path: 'testing',
     loadChildren: () =>
       import('./testing/testing.module').then(module => module.TestingModule),
+    // ...canActivate(() => redirectLoggedInTo(['/landing']))
     ...canActivate(redirectUnauthorized)
+  },
+  {
+    path: 'landing',
+    component: LandingPageComponent
   }
 ];
 

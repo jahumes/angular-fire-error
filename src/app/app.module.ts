@@ -7,6 +7,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AngularFireModule} from '@angular/fire';
 import {ToastrModule} from 'ngx-toastr';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 
 const config = {
   apiKey: 'AIzaSyAfFdF4-IFkLje0lynFnQmFcB_1za0tl_Q',
@@ -19,7 +20,7 @@ const config = {
 };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LandingPageComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
