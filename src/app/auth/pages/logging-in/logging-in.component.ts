@@ -64,7 +64,7 @@ export class LoggingInComponent implements OnInit {
 
         toast.onHidden
           .pipe(first())
-          .subscribe(() => this._router.navigateByUrl('/videos/dashboard'));
+          .subscribe(() => this._router.navigateByUrl('/testing/page'));
       })
       .catch(error => {
         // Some error occurred, you can inspect the code: error.code
