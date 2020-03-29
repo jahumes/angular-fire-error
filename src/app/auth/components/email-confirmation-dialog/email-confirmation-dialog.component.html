@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Email Confirmation</h1>
+<div mat-dialog-content [formGroup]="form">
+
+  <mat-form-field style="width: 100%">
+    <mat-label>Email</mat-label>
+    <input matInput required formControlName="email" />
+    <mat-hint>Please confirm the email provided when you logged in</mat-hint>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [disabled]="form.invalid" (click)="confirm()">Confirm</button>
+</div>

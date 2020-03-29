@@ -1,0 +1,29 @@
+  <div class="login">
+    <mat-card class="login-card" *ngIf="!submitted">
+      <mat-progress-bar mode="indeterminate" *ngIf="loading" class="progress-bar"></mat-progress-bar>
+      <mat-card-content>
+        <mat-card-title>Login</mat-card-title>
+        <mat-card-subtitle>Please enter your email below</mat-card-subtitle>
+
+        <form [formGroup]="form">
+          <mat-form-field style="width: 100%">
+            <mat-label>Email Address</mat-label>
+            <input type="email" formControlName="email" id="email" matInput required>
+          </mat-form-field>
+        </form>
+        <small>* By submitting your email, you are agreeing to allowing future emails.</small>
+      </mat-card-content>
+      <mat-card-actions>
+        <button (click)="submit()" [disabled]="form.invalid" mat-button color="primary" mat-raised-button>Login</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="login-card" *ngIf="submitted">
+      <mat-card-content>
+        <mat-card-title>Login Submitted</mat-card-title>
+        <mat-card-subtitle>We have sent you an email with a link that will verify your email ({{submitted}}). Please click that link to login.</mat-card-subtitle>
+      </mat-card-content>
+      <mat-card-actions>
+        <button (click)="retryLogin()" mat-button color="primary" mat-raised-button>Retry Login</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>

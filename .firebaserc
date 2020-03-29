@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-fire-test": {
+      "hosting": {
+        "videos": [
+          "angular-fire-test"
+        ]
+      }
+    }
+  }
+}
