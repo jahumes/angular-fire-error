@@ -11,7 +11,7 @@ import {
   FIREBASE_APP_NAME,
   ɵfirebaseAppFactory
 } from '@angular/fire';
-import {AngularFireAuth} from '@angular/fire/auth';
+// import {AngularFireAuth} from '@angular/fire/auth';
 
 export type AuthPipeGenerator = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => AuthPipe;
 export type AuthPipe = UnaryFunction<Observable<User | null>, Observable<boolean | any[]>>;
@@ -27,22 +27,22 @@ export class AngularFireAuthGuard implements CanActivate {
     @Inject(FIREBASE_OPTIONS) options: FirebaseOptions,
     @Optional() @Inject(FIREBASE_APP_NAME) nameOrConfig: string | FirebaseAppConfig | null | undefined,
     zone: NgZone,
-    private fireAuth: AngularFireAuth,
+    // private fireAuth: AngularFireAuth,
     private router: Router
   ) {
-    // const auth = of(undefined).pipe(
-    //   observeOn(new ɵAngularFireSchedulers(zone).outsideAngular),
-    //   switchMap(() => zone.runOutsideAngular(() => import('firebase/auth'))),
-    //   map(() => ɵfirebaseAppFactory(options, zone, nameOrConfig)),
-    //   map(app => app.auth()),
-    //   shareReplay({bufferSize: 1, refCount: false}),
-    // );
+    const auth = of(undefined).pipe(
+      // observeOn(new ɵAngularFireSchedulers(zone).outsideAngular),
+      switchMap(() => import('firebase/auth')),
+      map(() => ɵfirebaseAppFactory(options, zone, nameOrConfig)),
+      map(app => app.auth()),
+      shareReplay({bufferSize: 1, refCount: false}),
+    );
 
-    // this.authState = auth.pipe(
-    //   switchMap(auth => new Observable<User | null>(auth.onAuthStateChanged.bind(auth)))
-    // );
+    this.authState = auth.pipe(
+      switchMap(auth => new Observable<User | null>(auth.onAuthStateChanged.bind(auth)))
+    );
 
-    this.authState = this.fireAuth.authState;
+    // this.authState = this.fireAuth.authState;
   }
 
   canActivate = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
