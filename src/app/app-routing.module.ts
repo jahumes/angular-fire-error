@@ -8,11 +8,6 @@ import {
 
 const routes: Routes = [
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: '/videos/dashboard'
-  },
-  {
     path: 'auth',
     loadChildren: () =>
       import('./auth/auth.module').then(module => module.AuthModule),
