@@ -9,7 +9,7 @@ import {
   FirebaseAppConfig,
   FIREBASE_OPTIONS,
   FIREBASE_APP_NAME,
-  ɵfirebaseAppFactory
+  ɵfirebaseAppFactory, FirebaseApp
 } from '@angular/fire';
 // import {AngularFireAuth} from '@angular/fire/auth';
 
@@ -27,12 +27,12 @@ export class AngularFireAuthGuard implements CanActivate {
     @Inject(FIREBASE_OPTIONS) options: FirebaseOptions,
     @Optional() @Inject(FIREBASE_APP_NAME) nameOrConfig: string | FirebaseAppConfig | null | undefined,
     zone: NgZone,
-    // private fireAuth: AngularFireAuth,
     private router: Router
   ) {
     const auth = of(undefined).pipe(
-      // observeOn(new ɵAngularFireSchedulers(zone).outsideAngular),
-      switchMap(() => import('firebase/auth')),
+      observeOn(new ɵAngularFireSchedulers(zone).outsideAngular),
+      switchMap(() => zone.runOutsideAngular(() => import('firebase/auth'))),
+      observeOn(new ɵAngularFireSchedulers(zone).insideAngular),
       map(() => ɵfirebaseAppFactory(options, zone, nameOrConfig)),
       map(app => app.auth()),
       shareReplay({bufferSize: 1, refCount: false}),
@@ -41,8 +41,6 @@ export class AngularFireAuthGuard implements CanActivate {
     this.authState = auth.pipe(
       switchMap(auth => new Observable<User | null>(auth.onAuthStateChanged.bind(auth)))
     );
-
-    // this.authState = this.fireAuth.authState;
   }
 
   canActivate = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
